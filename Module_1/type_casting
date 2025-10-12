@@ -1,0 +1,17 @@
+package Basic;
+public class type_cast {
+ 	public static void main(String[] args) {
+    	// IMPLICIT TYPECASTING (Widening Conversion)
+    	int intVal = 42;
+    	double doubleVal = intVal;
+    	System.out.println("Implicit Casting:");
+    	System.out.println("int value: " + intVal);
+    	System.out.println("Converted to double: " + doubleVal);
+    	// EXPLICIT TYPECASTING (Narrowing Conversion)
+    	double originalDouble = 42.99;
+    	int narrowedInt = (int) originalDouble;
+    	System.out.println("\nExplicit Casting:");
+    	System.out.println("double value: " + originalDouble);
+    	System.out.println("Converted to int: " + narrowedInt);
+ 	}
+}
