@@ -1,0 +1,44 @@
+package Basic;
+ 
+public class student {
+        	
+	String name;
+	int age;
+ 
+	public student() {
+    	name = "Unknown";
+    	age = 0;
+	}
+ 
+	public student(String studentName) {
+    	name = studentName;
+    	age = 18; // default age
+	}
+ 
+	public student(String studentName, int studentAge) {
+    	name = studentName;
+    	age = studentAge;
+	}
+ 
+	public void displayDetails() {
+    	System.out.println("Student Name: " + name);
+    	System.out.println("Student Age: " + age);
+    	System.out.println("------------------------");
+	}
+ 
+        	public static void main(String[] args) {
+                    	
+    	student student1 = new student();
+        student1.displayDetails();
+ 
+    	student student2 = new student("Amit");
+        student2.displayDetails();
+ 
+    	student student3 = new student("Priya", 21);
+        student3.displayDetails();
+                    	
+ 
+        	}
+ 
+}
+s
