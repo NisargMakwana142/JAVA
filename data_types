@@ -1,0 +1,33 @@
+package Basic;
+public class data_types {
+public static void main(String[] args) {
+      	 // Primitive Data Types
+    	byte b = 100;
+    	short s = 30000;
+    	int i = 100000;
+    	long l = 123456789L;
+    	float f = 3.14f;
+    	double d = 3.1415926535;
+    	char c = 'A';
+    	boolean bool = true;
+ 
+    	// Non-Primitive Data Types
+    	String str = "Hello, Java!";
+    	int[] arr = {1, 2, 3, 4, 5};
+ 
+    	// Output
+    	System.out.println("byte: " + b);
+    	System.out.println("short: " + s);
+    	System.out.println("int: " + i);
+    	System.out.println("long: " + l);
+    	System.out.println("float: " + f);
+    	System.out.println("double: " + d);
+    	System.out.println("char: " + c);
+    	System.out.println("boolean: " + bool);
+    	System.out.println("String: " + str);
+    	System.out.print("Array: ");
+    	for (int num : arr) {
+        	System.out.print(num + " ");
+    	}
+ 	}
+}
