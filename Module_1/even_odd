@@ -1,0 +1,16 @@
+Package Basic;
+Public class even_odd{
+ 	Public static void main(String[] args){
+      	int x = 7;
+  	switch (x % 2) {
+    	case 0:
+    	  System.out.println("odd");
+    	  break;
+    	case 1:
+    	  System.out.println("even");
+    	  break;
+    	default :
+    	  System.out.println("error");
+    	}
+ 	}
+}
