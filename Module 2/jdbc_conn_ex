@@ -1,0 +1,37 @@
+package JDBC_connection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class connection {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3307/test","root","");
+			System.out.println("Connected Successfully");
+			PreparedStatement pst=con.prepareStatement("insert into testData(username,password) values(?,?)");
+			pst.setString(1, "admin");
+			pst.setString(2, "admin@123");
+			
+			int i =pst.executeUpdate();
+			if(i>0) {
+				System.out.println("Record inserted successfully");
+			}else {
+				System.out.println("Record insertion failed");
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
