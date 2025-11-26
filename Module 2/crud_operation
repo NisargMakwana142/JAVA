@@ -1,0 +1,149 @@
+package com.servlet;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.Jdbc_conn.Jdbc_conn;
+
+/**
+ * Servlet implementation class InserData
+ */
+@WebServlet("/insertdata")
+public class insertdata extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor. 
+     */
+    public insertdata() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String action=	request.getParameter("action");
+		Jdbc_conn conn=new Jdbc_conn();
+		Connection con;
+		con=conn.gConnection();
+		if(action.equals("edit")) {
+			String id=request.getParameter("id");
+
+			try {
+				PreparedStatement psmt=con.prepareStatement("select * from register where userId=?");
+				psmt.setInt(1, Integer.parseInt(id));
+				ResultSet rs=	psmt.executeQuery();
+				request.setAttribute("edit", rs);
+				
+				RequestDispatcher rd=request.getRequestDispatcher("edit.jsp");
+				rd.forward(request, response);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		
+		else if(action.equals("update")) {
+			String username=request.getParameter("username");
+			String password=request.getParameter("password");
+			String dob=request.getParameter("date");
+			String email=request.getParameter("email");
+			int id=Integer.parseInt(request.getParameter("id"));
+			try {
+				PreparedStatement psmt=con.prepareStatement("update register set username=?,password=?,email=?,dob=? where userId=? ");
+				psmt.setString(1, username);
+				psmt.setString(2, password);
+				psmt.setString(3,email);
+				psmt.setString(4, dob);
+				psmt.setInt(5, id);
+				
+			int i=	psmt.executeUpdate();
+				if(i>0) {
+					request.setAttribute("msg", "value updated sucessfully");
+					RequestDispatcher  rd=request.getRequestDispatcher("showallData");
+					rd.forward(request, response);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+		}
+		
+		else if(action.equals("delete")) {
+			
+			int id=Integer.parseInt(request.getParameter("id"));
+			try {
+				PreparedStatement psmt=con.prepareStatement("delete from register where userId=? ");
+				
+				psmt.setInt(1, id);
+				
+			int i=	psmt.executeUpdate();
+				if(i>0) {
+					RequestDispatcher  rd=request.getRequestDispatcher("showallData");
+					rd.forward(request, response);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	} 
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	String username=request.getParameter("username");
+	String password=request.getParameter("password");
+	String email=request.getParameter("email");
+	String dob=request.getParameter("date");
+	
+	System.out.println(username +" "+password+" "+dob+" "+email);
+	Jdbc_conn conn=new Jdbc_conn();
+	Connection con;
+	con=conn.gConnection();
+	try {
+		PreparedStatement psmt=con.prepareStatement("insert into register(username,password,email,dob) values(?,?,?,?)");
+		psmt.setString(1, username);
+		psmt.setString(2, password);
+		psmt.setString(3,email);
+		psmt.setString(4,dob);
+		
+		int i=	psmt.executeUpdate();
+		if(i>0) {
+			
+			request.setAttribute("msg", "Data inserted Sucessfully");
+			RequestDispatcher  rd=request.getRequestDispatcher("register.jsp");
+			rd.forward(request, response);
+		}
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+		doGet(request, response);
+	}
+
+}
